@@ -9,22 +9,13 @@ import SwiftUI
 struct FrameworkDetails: View {
     let framework: Framework
     @Binding var showDetailsScreen: Bool
+    @State var isSafariScreenPresented: Bool = false
     var body: some View {
         return VStack {
             
-            HStack {
-                Spacer()
-                Button {
-                    showDetailsScreen = false
-                } label: {
-                    Image(systemName: "xmark")
-                        .foregroundStyle(Color(.label))
-                        .imageScale(.large)
-                        .frame(width: 44, height: 44)
-                }
-
+            DismissViewButton(showViewScreen: $showDetailsScreen) {
+                showDetailsScreen = false
             }
-            .padding()
             
             Spacer()
             
@@ -40,7 +31,7 @@ struct FrameworkDetails: View {
             Spacer()
             
             Button {
-                
+                isSafariScreenPresented = true
             } label: {
                 ButtonView(
                     title: "Learn More"
@@ -48,6 +39,12 @@ struct FrameworkDetails: View {
             }
         }
         .padding()
+        .fullScreenCover(
+            isPresented: $isSafariScreenPresented) {
+                if let safariUrl = URL(string: framework.urlString) {
+                    SafariView(url: safariUrl)
+                }
+            }
     }
 }
 
