@@ -8,33 +8,26 @@
 import SwiftUI
 
 struct AppDashboard: View {
-    @StateObject var controller = AppDashboardController()
+    var controller = AppDashboardController()
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 LazyVGrid(
                     columns: controller.columns,
                     content: {
                         ForEach(MockData.frameworks, id: \.id) { framework in
-                            FrameworkTitleView(framework: framework)
-                                .onTapGesture { controller.selectedFramework = framework }
+                            NavigationLink {
+                                FrameworkDetails(framework: framework)
+                            } label: {
+                                FrameworkTitleView(framework: framework)
+                            }
                         }
                     }
                 )
             }
             .navigationTitle("🍎 Frameworks")
         }
-        .sheet(
-            isPresented: $controller.isPresented,
-            onDismiss: {  controller.selectedFramework = nil },
-            content: {
-                FrameworkDetails(
-                    framework: controller.selectedFramework ?? MockData.sampleFramework,
-                    showDetailsScreen: $controller.isPresented
-                )
-            }
-        )
     }
 }
 

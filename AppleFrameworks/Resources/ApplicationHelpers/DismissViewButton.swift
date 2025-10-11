@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DismissViewButton: View {
-    @Binding var showViewScreen: Bool
     var buttonAction: (()->())?
     
     var body: some View {

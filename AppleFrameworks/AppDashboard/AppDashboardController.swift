@@ -7,12 +7,6 @@
 import SwiftUI
 
 final class AppDashboardController: ObservableObject {
-    var selectedFramework: Framework? = nil {
-        didSet { isPresented = (selectedFramework != nil) }
-    }
-    
-    @Published var isPresented: Bool = false
-    
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),

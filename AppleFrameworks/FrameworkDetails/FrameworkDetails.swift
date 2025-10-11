@@ -8,14 +8,11 @@ import SwiftUI
 
 struct FrameworkDetails: View {
     let framework: Framework
-    @Binding var showDetailsScreen: Bool
-    @State var isSafariScreenPresented: Bool = false
+    @State private var isSafariScreenPresented: Bool = false
     var body: some View {
         return VStack {
             
-            DismissViewButton(showViewScreen: $showDetailsScreen) {
-                showDetailsScreen = false
-            }
+//            DismissViewButton {}
             
             Spacer()
             
@@ -49,7 +46,7 @@ struct FrameworkDetails: View {
 }
 
 #Preview {
-    FrameworkDetails(framework: MockData.sampleFramework, showDetailsScreen: .constant(false))
+    FrameworkDetails(framework: MockData.sampleFramework)
 }
 
 struct ButtonView: View {
